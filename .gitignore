@@ -1,0 +1,16 @@
+Library/
+.vs/
+Temp/
+obj/
+Assembly-CSharp.csproj
+Assembly-CSharp-Editor.csproj
+vrtest.sln
+vrtest.csproj
+vrtest.Editor.csproj
+Unity.TextMeshPro.csproj
+Unity.TextMeshPro.Editor.csproj
+Unity.PackageManagerUI.Editor.csproj
+Unity.CollabProxy.Editor.csproj
+Unity.Analytics.DataPrivacy.csproj
+Packages/manifest.json
+Logs/Packages-Update.log
