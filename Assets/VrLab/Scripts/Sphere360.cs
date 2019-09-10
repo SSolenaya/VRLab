@@ -1,12 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Sphere360 : MonoBehaviour {
+namespace Assets.VrLab.Scripts {
+    public class Sphere360 : MonoBehaviour {
 
-    public Texture currentSphereTexture;
-    public List<Point> listOfPoints = new List<Point>();
-    public Vector3 spherePosition;
-
-
+        private int _index;
+        private float _alpha;
+    
+        public void Setup(int index) {
+            var infoSphere = InfoClass.inst.GetInfoSphere(index);
+            Texture tex = infoSphere.textureInfo;
+            GetComponent<Renderer>().material.SetTexture("_MainTex", tex);
+        }
+    }
 }
