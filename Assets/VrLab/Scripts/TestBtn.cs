@@ -17,7 +17,7 @@ namespace Assets.VrLab.Scripts {
         }
 
         public void Update() {
-            if (onEnter) {
+          /*  if (onEnter) {
                 currentTime += Time.deltaTime;
                 if (currentTime > 1) {
                     currentTime = 0;
@@ -25,7 +25,7 @@ namespace Assets.VrLab.Scripts {
                 }
             } else {
                 currentTime = 0;
-            }
+            }*/
         }
     }
 }

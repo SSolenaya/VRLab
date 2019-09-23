@@ -8,16 +8,25 @@ namespace Assets.VrLab.Scripts {
         public int startIndex = 3;
         public static int maxIndex = 5;
         public Sphere360 spheresPrefab;
+        public Sphere360 currentSphere;
         //public Point point;
-        public List<Point> fullPointsList = new List<Point>();
-    
+        //public List<Point> fullPointsList = new List<Point>();
+
         public void Awake () {
             inst = this;
         }
 
         public void CreateSphere(int index) {
-            var sphereOnScene = Instantiate(spheresPrefab);
-            sphereOnScene.Setup(index);
+            DeleteSphere();
+            currentSphere = Instantiate(spheresPrefab);
+            currentSphere.Setup(index);
+        }
+
+        public void DeleteSphere() {
+            if (currentSphere != null) {
+                currentSphere.DeletePoints();
+                Destroy(currentSphere.gameObject);
+            }
         }
 
         public void Start() {
