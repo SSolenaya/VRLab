@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,9 @@ namespace Assets.VrLab.Scripts {
         public void Setup (int index) {
             renderer = GetComponent<Renderer>();
             _index = index;
-            var infoSphere = InfoClass.inst.GetInfoSphere(index);
+            var infoSphere = InfoClass.inst.GetInfoSphere(_index);
             var tex = infoSphere.textureInfo;
-            FadingSphere(1, 1.5f);
+            FadingSphere(1, 1.8f, () => {SetActivePointsList(true);});
             GetComponent<Renderer>().material.SetTexture("_MainTex", tex);
             this.gameObject.transform.Rotate(infoSphere.angleX, infoSphere.angleY, infoSphere.angleZ);
             SetupPoints(index);
@@ -29,6 +30,7 @@ namespace Assets.VrLab.Scripts {
             var infoSphere = InfoClass.inst.GetInfoSphere(index);
             foreach(var infoPointI in infoSphere.infoPointsList) {
                 var point = Instantiate(prefabPoint);
+                point.gameObject.SetActive(false);
                 point.transform.position = infoPointI.position;
                 point.transform.LookAt(Camera.main.transform);
                 point.gameObject.transform.Rotate(0,180,0);
@@ -44,12 +46,12 @@ namespace Assets.VrLab.Scripts {
             pointsList.Clear();
         }
 
-        public void FadingSphere (int tintsAlpha, float fadingTime) {
-            coro = StartCoroutine(FadingTint(tintsAlpha, fadingTime));
+        public void FadingSphere (int tintsAlpha, float fadingTime, Action action) {
+            coro = StartCoroutine(FadingTint(tintsAlpha, fadingTime, action));
             GetComponent<Renderer>().material.SetColor("_Color", tintColor);
         }
 
-        public IEnumerator FadingTint (int tintsAlpha, float fadingTime) {
+        public IEnumerator FadingTint (int tintsAlpha, float fadingTime, Action action) {
             var currentA = tintColor.a;
             var currentTime = 0f;
             float t;
@@ -63,6 +65,15 @@ namespace Assets.VrLab.Scripts {
             }
             tintColor.a = tintsAlpha;
             renderer.material.SetColor("_Color", tintColor);
+            if (action != null) {
+                action.Invoke();
+            }
+        }
+
+        public void SetActivePointsList(bool var) {
+            foreach (var eachPoint in pointsList) {
+                eachPoint.gameObject.SetActive(var);
+            }
         }
     }
 }

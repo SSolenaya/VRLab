@@ -16,18 +16,23 @@ namespace Assets.VrLab.Scripts {
             inst = this;
         }
 
-        public void CreateSphere(int index) {
-            DeleteSphere();
-            currentSphere = Instantiate(spheresPrefab);
-            currentSphere.Setup(index);
+       public void CreateSphere (int index) {
+            if (currentSphere != null) {
+                currentSphere.SetActivePointsList(false);
+                currentSphere.FadingSphere(0, 1.2f, () => {
+                    currentSphere.DeletePoints();
+                    Destroy(currentSphere.gameObject);
+                    InstantiateSphere(index);
+                });
+            }
+            else {
+                InstantiateSphere(index);
+            }
         }
 
-        public void DeleteSphere() {
-            if (currentSphere != null) {
-                currentSphere.FadingSphere(0, 1.5f);
-                currentSphere.DeletePoints();
-                Destroy(currentSphere.gameObject);
-            }
+        public void InstantiateSphere(int index) {
+            currentSphere = Instantiate(spheresPrefab);
+            currentSphere.Setup(index);
         }
 
         public void Start() {
