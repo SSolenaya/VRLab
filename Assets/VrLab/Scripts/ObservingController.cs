@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.VR;
+using UnityEngine.XR;
 
 namespace Assets.VrLab.Scripts {
     public class ObservingController: MonoBehaviour {
@@ -9,8 +14,7 @@ namespace Assets.VrLab.Scripts {
         public static int maxIndex = 5;
         public Sphere360 spheresPrefab;
         public Sphere360 currentSphere;
-        //public Point point;
-        //public List<Point> fullPointsList = new List<Point>();
+        public bool modeVR;
 
         public void Awake () {
             inst = this;
@@ -37,6 +41,21 @@ namespace Assets.VrLab.Scripts {
 
         public void Start() {
             CreateSphere(startIndex);
+
+         }
+
+        IEnumerator LoadDevice (string newDevice, bool enable) {
+            XRSettings.LoadDeviceByName(newDevice);
+            yield return new WaitForSeconds(0.5f);
+            XRSettings.enabled = enable;
+        }
+
+        public void EnableVR () {
+            StartCoroutine(LoadDevice("cardboard", true));
+        }
+
+        public void DisableVR () {
+            StartCoroutine(LoadDevice("", false));
         }
 
     }
