@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,10 +20,11 @@ namespace Assets.VrLab.Scripts {
             _index = index;
             var infoSphere = InfoClass.inst.GetInfoSphere(index);
             var tex = infoSphere.textureInfo;
-            FadingSphere(1, 1.5f);
+            FadingSphere(1, 5f, () => { SetActivePointsList(true); });//1.5f
             GetComponent<Renderer>().material.SetTexture("_MainTex", tex);
             this.gameObject.transform.Rotate(infoSphere.angleX, infoSphere.angleY, infoSphere.angleZ);
             SetupPoints(index);
+
         }
 
         public void SetupPoints (int index) {
@@ -34,6 +36,7 @@ namespace Assets.VrLab.Scripts {
                 point.gameObject.transform.Rotate(0,180,0);
                 point.iD = infoPointI.id;
                 pointsList.Add(point);
+                point.gameObject.SetActive(false);
             }
         }
 
@@ -44,12 +47,12 @@ namespace Assets.VrLab.Scripts {
             pointsList.Clear();
         }
 
-        public void FadingSphere (int tintsAlpha, float fadingTime) {
-            coro = StartCoroutine(FadingTint(tintsAlpha, fadingTime));
-            GetComponent<Renderer>().material.SetColor("_Color", tintColor);
+        public void FadingSphere (int tintsAlpha, float fadingTime, Action action = null) {
+            coro = StartCoroutine(FadingTint(tintsAlpha, fadingTime, action));
+            //GetComponent<Renderer>().material.SetColor("_Color", tintColor);
         }
 
-        public IEnumerator FadingTint (int tintsAlpha, float fadingTime) {
+        public IEnumerator FadingTint (int tintsAlpha, float fadingTime, Action action = null) {
             var currentA = tintColor.a;
             var currentTime = 0f;
             float t;
@@ -63,6 +66,16 @@ namespace Assets.VrLab.Scripts {
             }
             tintColor.a = tintsAlpha;
             renderer.material.SetColor("_Color", tintColor);
+            if (action != null) {
+                action.Invoke();
+            }
+            
+        }
+
+        public void SetActivePointsList(bool var) {
+            foreach (var point in pointsList) {
+                point.gameObject.SetActive(var);
+            }
         }
     }
 }
