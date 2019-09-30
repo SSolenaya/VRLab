@@ -47,3 +47,6 @@ TagManager:
   - name: notUI
     uniqueID: 3296096001
     locked: 0
+  - name: Point
+    uniqueID: 2984023231
+    locked: 0

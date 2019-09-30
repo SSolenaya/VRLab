@@ -8,6 +8,7 @@ namespace Assets.VrLab.Scripts {
         public int iD;
    
         void Awake() {
+            gameObject.layer = 9;
         }
 
      

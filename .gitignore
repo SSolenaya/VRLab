@@ -14,3 +14,4 @@ Unity.CollabProxy.Editor.csproj
 Unity.Analytics.DataPrivacy.csproj
 Packages/manifest.json
 Logs/Packages-Update.log
+VRlab.Editor.csproj

@@ -24,6 +24,7 @@ namespace Assets.VrLab.Scripts {
 
         public void DeleteSphere() {
             if (currentSphere != null) {
+                currentSphere.FadingSphere(0, 1.5f);
                 currentSphere.DeletePoints();
                 Destroy(currentSphere.gameObject);
             }

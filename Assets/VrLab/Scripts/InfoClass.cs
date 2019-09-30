@@ -36,6 +36,9 @@ namespace Assets.VrLab.Scripts {
 
     [Serializable]
     public class InfoSphere {
+        public int angleX;
+        public int angleY;
+        public int angleZ;
         public int iD;
         public List<InfoPoint> infoPointsList = new List<InfoPoint>();
         public Texture textureInfo;
