@@ -9,10 +9,10 @@ public class PreloadSigningAlias {
     }
 
     public static void Init () {
-        PlayerSettings.Android.keystoreName = "./Assets/fiveone.keystore";
+        PlayerSettings.Android.keystoreName = "D:/7w_bear/VRlab/vrLabKeyStore.keystore";
         PlayerSettings.Android.keystorePass = "08062015";
 
-        PlayerSettings.Android.keyaliasName = "fiveone";
+        PlayerSettings.Android.keyaliasName = "vrlab";
         PlayerSettings.Android.keyaliasPass = "08062015";
         //PlayerSettings.Android.bundleVersionCode++;
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.VrLab.Scripts {
-    public class Sphere360: MonoBehaviour {
+    public class Sphere360 : MonoBehaviour {
 
         [SerializeField] private int _index;
         private float _alpha;
@@ -12,51 +12,54 @@ namespace Assets.VrLab.Scripts {
         public Point prefabPoint;
         public Material material;
         public Coroutine coro;
-        public Color tintColor = new Color (1, 1, 1, 0);
+        public Color tintColor = new Color(1, 1, 1, 0);
         public Renderer renderer;
 
-        public void Setup (int index) {
+        public void Setup(int index) {
             renderer = GetComponent<Renderer>();
             _index = index;
-            var infoSphere = InfoClass.inst.GetInfoSphere(index);
+            var infoSphere = InfoClass.inst.GetInfoSphere(_index);
             var tex = infoSphere.textureInfo;
-            FadingSphere(1, 5f, () => { SetActivePointsList(true); });//1.5f
+            FadingSphere(1, 5f, () => { SetActivePointsList(true); }); //1.5f
+            FadingSphere(1, 1.8f, () => { SetActivePointsList(true); });
             GetComponent<Renderer>().material.SetTexture("_MainTex", tex);
             this.gameObject.transform.Rotate(infoSphere.angleX, infoSphere.angleY, infoSphere.angleZ);
             SetupPoints(index);
 
         }
 
-        public void SetupPoints (int index) {
+        public void SetupPoints(int index) {
             var infoSphere = InfoClass.inst.GetInfoSphere(index);
-            foreach(var infoPointI in infoSphere.infoPointsList) {
+            foreach (var infoPointI in infoSphere.infoPointsList) {
                 var point = Instantiate(prefabPoint);
+                point.gameObject.SetActive(false);
                 point.transform.position = infoPointI.position;
                 point.transform.LookAt(Camera.main.transform);
-                point.gameObject.transform.Rotate(0,180,0);
+                point.gameObject.transform.Rotate(0, 180, 0);
                 point.iD = infoPointI.id;
                 pointsList.Add(point);
                 point.gameObject.SetActive(false);
             }
         }
 
-        public void DeletePoints () {
-            foreach(var pointS in pointsList) {
+        public void DeletePoints() {
+            foreach (var pointS in pointsList) {
                 Destroy(pointS.gameObject);
             }
+
             pointsList.Clear();
         }
 
-        public void FadingSphere (int tintsAlpha, float fadingTime, Action action = null) {
+        public void FadingSphere(int tintsAlpha, float fadingTime, Action action) {
             coro = StartCoroutine(FadingTint(tintsAlpha, fadingTime, action));
-            //GetComponent<Renderer>().material.SetColor("_Color", tintColor);
+            GetComponent<Renderer>().material.SetColor("_Color", tintColor);
         }
 
-        public IEnumerator FadingTint (int tintsAlpha, float fadingTime, Action action = null) {
+        public IEnumerator FadingTint(int tintsAlpha, float fadingTime, Action action) {
             var currentA = tintColor.a;
             var currentTime = 0f;
             float t;
-            while(currentTime < fadingTime) {
+            while (currentTime < fadingTime) {
                 Debug.Log(" " + tintColor.a);
                 t = currentTime / fadingTime;
                 currentTime += Time.deltaTime;
@@ -64,12 +67,12 @@ namespace Assets.VrLab.Scripts {
                 renderer.material.SetColor("_Color", tintColor);
                 yield return null;
             }
+
             tintColor.a = tintsAlpha;
             renderer.material.SetColor("_Color", tintColor);
             if (action != null) {
                 action.Invoke();
             }
-            
         }
 
         public void SetActivePointsList(bool var) {
