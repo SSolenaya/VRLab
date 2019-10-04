@@ -1,10 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.VR;
 using UnityEngine.XR;
+using static UnityEditor.PlayerSettings;
 
 namespace Assets.VrLab.Scripts {
     public class ObservingController: MonoBehaviour {
@@ -44,18 +41,22 @@ namespace Assets.VrLab.Scripts {
 
          }
 
-        IEnumerator LoadDevice (string newDevice, bool enable) {
+        IEnumerator LoadDevice (string newDevice, bool isEnable) {
             XRSettings.LoadDeviceByName(newDevice);
             yield return new WaitForSeconds(0.5f);
-            XRSettings.enabled = enable;
+            XRSettings.gameViewRenderMode = isEnable ? GameViewRenderMode.BothEyes : GameViewRenderMode.LeftEye;
+            //XRSettings.enabled = isEnable;
         }
 
         public void EnableVR () {
-            StartCoroutine(LoadDevice("cardboard", true));
+            StartCoroutine(LoadDevice("cardboard", true)); 
+            Camera.main.transform.localRotation = Quaternion.identity;
         }
 
         public void DisableVR () {
             StartCoroutine(LoadDevice("", false));
+            Camera.main.ResetAspect();
+            Camera.main.transform.localRotation = UnityEngine.XR.InputTracking.GetLocalRotation(XRNode.CenterEye);
         }
 
     }
