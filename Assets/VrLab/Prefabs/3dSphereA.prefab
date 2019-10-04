@@ -91,7 +91,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _index: 0
-  prefabPoint: {fileID: 4012910339045953899, guid: e53a91448005f6c468851a4b5be61f53,
+  prefabOfPoint: {fileID: 4012910339045953899, guid: e53a91448005f6c468851a4b5be61f53,
+    type: 3}
+  prefabOfPin: {fileID: 7120939557504909515, guid: 1829154131aa5cf4d873261b6c033f7a,
     type: 3}
   material: {fileID: 2100000, guid: d6eba971c935b7841addeaefb704d1af, type: 2}
   tintColor: {r: 1, g: 1, b: 1, a: 0}

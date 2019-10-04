@@ -20,8 +20,9 @@ namespace Assets.VrLab.Scripts {
        public void CreateSphere (int index) {
             if (currentSphere != null) {
                 currentSphere.SetActivePointsList(false);
+                currentSphere.SetActivePinsList(false);
                 currentSphere.FadingSphere(0, 1.2f, () => {
-                    currentSphere.DeletePoints();
+                    currentSphere.DeletePointsAndPins();
                     Destroy(currentSphere.gameObject);
                     InstantiateSphere(index);
                 });
@@ -49,14 +50,14 @@ namespace Assets.VrLab.Scripts {
         }
 
         public void EnableVR () {
-            StartCoroutine(LoadDevice("cardboard", true)); 
+           // StartCoroutine(LoadDevice("cardboard", true)); 
             Camera.main.transform.localRotation = Quaternion.identity;
         }
 
         public void DisableVR () {
             StartCoroutine(LoadDevice("", false));
             Camera.main.ResetAspect();
-            Camera.main.transform.localRotation = UnityEngine.XR.InputTracking.GetLocalRotation(XRNode.CenterEye);
+            Camera.main.transform.localRotation = InputTracking.GetLocalRotation(XRNode.CenterEye);
         }
 
     }

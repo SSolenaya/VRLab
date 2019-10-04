@@ -9,7 +9,9 @@ namespace Assets.VrLab.Scripts {
         [SerializeField] private int _index;
         private float _alpha;
         private List<Point> pointsList = new List<Point>();
-        public Point prefabPoint;
+        private List<Pin> pinsList = new List<Pin>();
+        public Point prefabOfPoint;
+        public Pin prefabOfPin;
         public Material material;
         public Coroutine coro;
         public Color tintColor = new Color (1, 1, 1, 0);
@@ -20,16 +22,20 @@ namespace Assets.VrLab.Scripts {
             _index = index;
             var infoSphere = InfoClass.inst.GetInfoSphere(_index);
             var tex = infoSphere.textureInfo;
-            FadingSphere(1, 1.8f, () => {SetActivePointsList(true);});
+            FadingSphere(1, 1.8f, () => {
+                SetActivePointsList(true);
+                SetActivePinsList(true);
+            });
             GetComponent<Renderer>().material.SetTexture("_MainTex", tex);
             this.gameObject.transform.Rotate(infoSphere.angleX, infoSphere.angleY, infoSphere.angleZ);
             SetupPoints(index);
+            SetupPins(index);
         }
 
         public void SetupPoints (int index) {
             var infoSphere = InfoClass.inst.GetInfoSphere(index);
             foreach(var infoPointI in infoSphere.infoPointsList) {
-                var point = Instantiate(prefabPoint);
+                var point = Instantiate(prefabOfPoint);
                 point.gameObject.SetActive(false);
                 point.transform.position = infoPointI.position;
                 point.transform.LookAt(Camera.main.transform);
@@ -39,11 +45,29 @@ namespace Assets.VrLab.Scripts {
             }
         }
 
-        public void DeletePoints () {
+        public void SetupPins (int index) {
+            var infoSphere = InfoClass.inst.GetInfoSphere(index);
+            foreach(var infoPinI in infoSphere.infoPinsList) {
+                var pin = Instantiate(prefabOfPin);
+                pin.gameObject.SetActive(false);
+                pin.transform.position = infoPinI.position;
+                pin.transform.LookAt(Camera.main.transform);
+                pin.gameObject.transform.Rotate(0, 0, 0);
+                pin.pinsRelatedPrefab = infoPinI.prefab;
+                //pin.iD = infoPinI.id;
+                pinsList.Add(pin);
+            }
+        }
+
+        public void DeletePointsAndPins () {
             foreach(var pointS in pointsList) {
                 Destroy(pointS.gameObject);
             }
+            foreach(var pinS in pinsList) {
+                Destroy(pinS.gameObject);
+            }
             pointsList.Clear();
+            pinsList.Clear();
         }
 
         public void FadingSphere (int tintsAlpha, float fadingTime, Action action) {
@@ -56,7 +80,7 @@ namespace Assets.VrLab.Scripts {
             var currentTime = 0f;
             float t;
             while(currentTime < fadingTime) {
-                Debug.Log(" " + tintColor.a);
+                //Debug.Log(" " + tintColor.a);
                 t = currentTime / fadingTime;
                 currentTime += Time.deltaTime;
                 tintColor.a = Mathf.Lerp(currentA, tintsAlpha, t);
@@ -75,5 +99,11 @@ namespace Assets.VrLab.Scripts {
                 eachPoint.gameObject.SetActive(var);
             }
         }
+
+        public void SetActivePinsList (bool var) {
+                foreach(var eachPin in pinsList) {
+                    eachPin.gameObject.SetActive(var);
+                }
+            }
     }
 }

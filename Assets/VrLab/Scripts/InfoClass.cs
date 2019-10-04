@@ -26,6 +26,10 @@ namespace Assets.VrLab.Scripts {
             return sphere.infoPointsList;
         }
 
+        public List<InfoPin> GetInfoPins (InfoSphere sphere) {
+            return sphere.infoPinsList;
+        }
+
     }
 
     [Serializable]
@@ -35,12 +39,19 @@ namespace Assets.VrLab.Scripts {
     }
 
     [Serializable]
+    public class InfoPin {
+        public Vector3 position;
+        public GameObject prefab;
+    }
+
+    [Serializable]
     public class InfoSphere {
         public int angleX;
         public int angleY;
         public int angleZ;
         public int iD;
         public List<InfoPoint> infoPointsList = new List<InfoPoint>();
+        public List<InfoPin> infoPinsList = new List<InfoPin>();
         public Texture textureInfo;
     }
 }

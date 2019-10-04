@@ -25,13 +25,13 @@ namespace Assets.VrLab.Scripts {
 
         public void ActionOnEnterPoint() {
             StopCoro();
-            Debug.Log("Указатель зашел на поинт " + iD);
+            //Debug.Log("Указатель зашел на поинт " + iD);
             coro = StartCoroutine(IEActionOnPoint());
         }
 
         public void ActionOnExitPoint() {
             StopCoro();
-            Debug.Log("Указатель покинул поинт " + iD);
+            //Debug.Log("Указатель покинул поинт " + iD);
         }
 
         public void StopCoro() {

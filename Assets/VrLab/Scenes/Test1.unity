@@ -413,12 +413,12 @@ GameObject:
   - component: {fileID: 553711757}
   - component: {fileID: 553711756}
   m_Layer: 9
-  m_Name: Canvas (1)
+  m_Name: SwitcherToMonocular
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &553711756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,7 +628,7 @@ MonoBehaviour:
   spheresPrefab: {fileID: 8680261293572622538, guid: 9ce37da638871794290b913bfbb5fd15,
     type: 3}
   currentSphere: {fileID: 0}
-  modeVR: 0
+  modeVR: 1
 --- !u!4 &878983211
 Transform:
   m_ObjectHideFlags: 0
@@ -854,12 +854,12 @@ GameObject:
   - component: {fileID: 1119895184}
   - component: {fileID: 1119895183}
   m_Layer: 9
-  m_Name: Canvas
+  m_Name: SwitcherToStereoscopic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1119895183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1182,6 +1182,10 @@ MonoBehaviour:
       position: {x: -2.7, y: -2.1, z: 19.7}
     - id: 5
       position: {x: -16, y: 1.2, z: 11.6}
+    infoPinsList:
+    - position: {x: -11, y: -10, z: 18}
+      prefab: {fileID: 8278894051799632767, guid: c982cff307daeea43ae788f9e01321cc,
+        type: 3}
     textureInfo: {fileID: 2800000, guid: 1380dbc47a214ff4d9aaecf0d0b867df, type: 3}
   - angleX: -93
     angleY: 40
@@ -1196,6 +1200,7 @@ MonoBehaviour:
       position: {x: 6, y: 2.4, z: 16.9}
     - id: 5
       position: {x: -14.2, y: 3.9, z: 13.3}
+    infoPinsList: []
     textureInfo: {fileID: 2800000, guid: 1a74553d311729e48b1f2f2c92ea636d, type: 3}
   - angleX: -90
     angleY: 0
@@ -1210,6 +1215,7 @@ MonoBehaviour:
       position: {x: -15.7, y: -0.9, z: 11.3}
     - id: 5
       position: {x: -19.4, y: 2, z: 4.4}
+    infoPinsList: []
     textureInfo: {fileID: 2800000, guid: 23809b7f23ff7c040b82d429eb3bf495, type: 3}
   - angleX: -90
     angleY: 180
@@ -1224,6 +1230,7 @@ MonoBehaviour:
       position: {x: 14.3, y: -3.75, z: -13.3}
     - id: 5
       position: {x: -18.4, y: 2.1, z: -5.4}
+    infoPinsList: []
     textureInfo: {fileID: 2800000, guid: 34ab9ea57d5e641429895de770f7975c, type: 3}
   - angleX: -90
     angleY: 66
@@ -1238,6 +1245,7 @@ MonoBehaviour:
       position: {x: 19.4, y: -1.4, z: 0.3}
     - id: 4
       position: {x: 15.7, y: -2.7, z: 11.9}
+    infoPinsList: []
     textureInfo: {fileID: 2800000, guid: 58624f2dc70b39e4eb891aafd314987c, type: 3}
 --- !u!4 &1910592312
 Transform:
