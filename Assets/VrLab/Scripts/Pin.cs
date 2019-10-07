@@ -1,28 +1,27 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+using Assets.VrLab.Scripts;
 using UnityEngine;
 
 public class Pin : MonoBehaviour {
     //public int pinsID;
-    public Vector3 position;
+    //public Vector3 position;
     public GameObject pinsRelatedPrefab;
     private Coroutine _coro;
+   
 
-    public void Start() {
-        
+    void Awake () {
+        gameObject.layer = 9;
     }
-
 
     public void ActionOnEnterPin () {
         StopCoro();
-        Debug.Log("Указатель зашел на pin ");
+        //Debug.Log("Указатель зашел на pin ");
         _coro = StartCoroutine(IEActionOnPin());
     }
 
     public void ActionOnExitPin () {
         StopCoro();
-        Debug.Log("Указатель покинул pin ");
+        //Debug.Log("Указатель покинул pin ");
     }
 
     public void StopCoro () {
@@ -34,8 +33,13 @@ public class Pin : MonoBehaviour {
 
     public IEnumerator IEActionOnPin () {
         yield return new WaitForSeconds(1.5f);
-        Debug.Log("Действие при задержке взгляда на pin");
+        //Debug.Log("Действие при задержке взгляда на pin");
         var content = Instantiate(pinsRelatedPrefab);
+        content.transform.LookAt(Camera.main.transform);
+        content.transform.Rotate(0,180,0);
+        ObservingController.inst.currentSphere.SetActivePointsList(false);
+        ObservingController.inst.currentSphere.SetActivePinsList(false);
+
     }
 
 }

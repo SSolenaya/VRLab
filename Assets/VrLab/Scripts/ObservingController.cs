@@ -42,7 +42,7 @@ namespace Assets.VrLab.Scripts {
 
          }
 
-        IEnumerator LoadDevice (string newDevice, bool isEnable) {
+   /*     IEnumerator LoadDevice (string newDevice, bool isEnable) {
             XRSettings.LoadDeviceByName(newDevice);
             yield return new WaitForSeconds(0.5f);
             XRSettings.gameViewRenderMode = isEnable ? GameViewRenderMode.BothEyes : GameViewRenderMode.LeftEye;
@@ -59,6 +59,6 @@ namespace Assets.VrLab.Scripts {
             Camera.main.ResetAspect();
             Camera.main.transform.localRotation = InputTracking.GetLocalRotation(XRNode.CenterEye);
         }
-
+*/
     }
 }

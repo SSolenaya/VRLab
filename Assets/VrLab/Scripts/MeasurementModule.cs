@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using Assets.VrLab.Scripts;
 using UnityEngine;
-using UnityEngine.UI;
-using Plane = System.Numerics.Plane;
 
-public class Router : MonoBehaviour {
+public class MeasurementModule : MonoBehaviour
+{
     private Coroutine _coro;
 
-    public void Awake() {
-        gameObject.transform.Rotate(0,0,0);
+    public void Awake () {
+        gameObject.SetActive(true);
     }
-  public void ActionOnEnterBtn () {
+    public void ActionOnEnterBtn () {
         StopCoro();
-        //Debug.Log("Указатель зашел на кнопку в Router");
+        //Debug.Log("Указатель зашел на кнопку в measurment module");
         _coro = StartCoroutine(IEActionOnBtn());
     }
 
     public void ActionOnExitBtn () {
         StopCoro();
-        //Debug.Log("Указатель покинул кнопку в Router");
+        //Debug.Log("Указатель покинул кнопку в measurment module");
     }
 
     public void StopCoro () {
@@ -31,7 +30,7 @@ public class Router : MonoBehaviour {
 
     public IEnumerator IEActionOnBtn () {
         yield return new WaitForSeconds(1.5f);
-        //Debug.Log("Действие при задержке взгляда на кнопку в Router");
+        //Debug.Log("Действие при задержке взгляда на кнопку в measurment module");
         ObservingController.inst.currentSphere.SetActivePointsList(true);
         ObservingController.inst.currentSphere.SetActivePinsList(true);
         Destroy(gameObject);

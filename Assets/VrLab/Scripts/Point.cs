@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Assets.VrLab.Scripts {
     public class Point : MonoBehaviour {
@@ -10,18 +9,6 @@ namespace Assets.VrLab.Scripts {
         void Awake() {
             gameObject.layer = 9;
         }
-
-     
-
-      /*  public void OnPointerEnter (PointerEventData eventData) {
-            StartCoroutine(ActionOnPoint());
-            ObservingController.inst.CreateSphere(this.iD);
-        }
-
-        public void OnPointerExit (PointerEventData eventData) {
-            Debug.Log("Указатель покинул поинт");
-        }
-*/
 
         public void ActionOnEnterPoint() {
             StopCoro();
@@ -43,7 +30,7 @@ namespace Assets.VrLab.Scripts {
 
         public IEnumerator IEActionOnPoint() {
             yield return new WaitForSeconds(2f);
-            Debug.Log("Действие при задержке взгляда на поинте");
+            //Debug.Log("Действие при задержке взгляда на поинте");
             ObservingController.inst.CreateSphere(iD);
         }
 

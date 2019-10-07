@@ -15,21 +15,21 @@ namespace Assets.VrLab.Scripts {
         public Material material;
         public Coroutine coro;
         public Color tintColor = new Color (1, 1, 1, 0);
-        public Renderer renderer;
+        public new Renderer renderer;
 
         public void Setup (int index) {
             renderer = GetComponent<Renderer>();
             _index = index;
             var infoSphere = InfoClass.inst.GetInfoSphere(_index);
             var tex = infoSphere.textureInfo;
+            SetupPoints(index);
+            SetupPins(index);
             FadingSphere(1, 1.8f, () => {
                 SetActivePointsList(true);
                 SetActivePinsList(true);
             });
             GetComponent<Renderer>().material.SetTexture("_MainTex", tex);
             this.gameObject.transform.Rotate(infoSphere.angleX, infoSphere.angleY, infoSphere.angleZ);
-            SetupPoints(index);
-            SetupPins(index);
         }
 
         public void SetupPoints (int index) {
@@ -52,7 +52,7 @@ namespace Assets.VrLab.Scripts {
                 pin.gameObject.SetActive(false);
                 pin.transform.position = infoPinI.position;
                 pin.transform.LookAt(Camera.main.transform);
-                pin.gameObject.transform.Rotate(0, 0, 0);
+                //pin.gameObject.transform.Rotate(0, 0, 0);
                 pin.pinsRelatedPrefab = infoPinI.prefab;
                 //pin.iD = infoPinI.id;
                 pinsList.Add(pin);
